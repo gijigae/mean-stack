@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose');
 
+// Schema for two subdocuments, opening time and reviews
 var openingTimeSchema = new mongoose.Schema({
   days: {type: String, required: true},
   opening: String,
@@ -16,14 +17,16 @@ var reviewSchema = new mongoose.Schema({
   createdOn: {type: Date, "default": Date.now()}
 });
 
+// Schema for location
 var locationSchema = new mongoose.Schema({
   name: {type: String, required: true},
   address: String,
   rating: {type: Number, "default": 0, min: 0, max: 5},
   facilities: [String],
-  coords: {type: [Number]},
+  coords: {type: [Number], required: true},
   openingTimes: [openingTimeSchema],
   reviews: [reviewSchema]
 });
 
+// Compile and create a Location model from LocationSchema
 mongoose.model('Location', locationSchema);
